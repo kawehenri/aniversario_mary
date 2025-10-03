@@ -166,6 +166,147 @@ function addGallerySparkle() {
     });
 }
 
+// Funcionalidade de música para as fotos
+function addMusicToPhotos() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    let currentAudio = null;
+    
+    galleryItems.forEach(item => {
+        const dataIndex = item.getAttribute('data-index');
+        const audioId = `audio${parseInt(dataIndex) + 1}`;
+        const audio = document.getElementById(audioId);
+        
+        if (audio) {
+            // Adiciona cursor pointer para indicar que é clicável
+            item.style.cursor = 'pointer';
+            
+            // Adiciona evento de clique
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Para qualquer música que esteja tocando
+                if (currentAudio && currentAudio !== audio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+                
+                // Se a música atual está tocando, pausa
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        currentAudio = audio;
+                        // Adiciona efeito visual de música tocando
+                        item.classList.add('music-playing');
+                    }).catch(error => {
+                        console.log('Erro ao reproduzir áudio:', error);
+                        // Mostra mensagem amigável se houver erro
+                        showMusicError();
+                    });
+                } else {
+                    // Se está tocando, pausa
+                    audio.pause();
+                    currentAudio = null;
+                    item.classList.remove('music-playing');
+                }
+            });
+            
+            // Adiciona efeito visual quando a música termina
+            audio.addEventListener('ended', function() {
+                item.classList.remove('music-playing');
+                currentAudio = null;
+            });
+        }
+    });
+}
+
+// Função para mostrar erro amigável quando não conseguir tocar música
+function showMusicError() {
+    // Cria uma notificação temporária
+    const notification = document.createElement('div');
+    notification.textContent = '🎵 Clique em "Permitir" para tocar música nas fotos!';
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ff6b9d, #c44569);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        z-index: 10000;
+        animation: slideInRight 0.5s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove a notificação após 4 segundos
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.5s ease-in';
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    }, 4000);
+}
+
+// Adiciona animações CSS para os efeitos de música
+function addMusicAnimations() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .music-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item.music-playing .music-indicator {
+            animation: pulse 1s infinite;
+            color: #ff6b9d;
+        }
+        
+        .gallery-item:hover .music-indicator {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
 // Contador de dias juntos (opcional - você pode personalizar)
 function showDaysTogether() {
     // Defina a data que vocês começaram a namorar
@@ -296,6 +437,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addHeartAnimation();
     createFloatingHearts();
     addGallerySparkle();
+    addMusicToPhotos();
+    addMusicAnimations();
     addHeartClickEffect();
     addConsoleMessage();
     
