@@ -3,7 +3,7 @@ s<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Você, Pessoa Especial 💕</title>
+    <title>Para Você, Maryzoca Xoxo 💕</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -77,7 +77,9 @@ s<!DOCTYPE html>
     <section class="gallery-section">
         <div class="container">
             <h2 class="section-title">Felicidades ao seu lado </h2>
+            <p class="music-instruction">🎵 Clique para ouvir as músicas 🎵</p>
             
+            <!-- Galeria em Grid -->
             <div class="gallery-grid">
                 <div class="gallery-item" data-index="0" data-music="static/music/Cris MC__poesia acústica 9 - Melhor forma [letra] - resilience Music (youtube).mp3">
                     <div class="gallery-image">
@@ -85,51 +87,46 @@ s<!DOCTYPE html>
                         <div class="gallery-overlay">
                             <span class="gallery-icon">💕</span>
                             <p class="gallery-caption">Melhor Forma</p>
-                            <div class="music-indicator">🎵</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="gallery-item" data-index="1" data-music="static/music/Jorge & Mateus - A Hora é Agora - [DVD Ao Vivo em Jurerê] - (Clipe Oficial).mp3">
+                <div class="gallery-item" data-index="1" data-music="static/music/a_hora_é_agora.mp3">
                     <div class="gallery-image">
                         <img src="static/img/jem.jpeg" alt="Nosso momento 2">
                         <div class="gallery-overlay">
                             <span class="gallery-icon">✨</span>
                             <p class="gallery-caption">A Hora é Agora</p>
-                            <div class="music-indicator">🎵</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="gallery-item" data-index="2" data-music="static/music/Matheus e Kauan   Todo Sol DVD 2021 Lançamento2021 - Victor Leal (youtube).mp3">
+                <div class="gallery-item" data-index="2" data-music="static/music/todo_sol.mp3">
                     <div class="gallery-image">
                         <img src="static/img/lifebox.jpeg" alt="Nosso momento 3">
                         <div class="gallery-overlay">
                             <span class="gallery-icon">🌹</span>
                             <p class="gallery-caption">Todo Sol</p>
-                            <div class="music-indicator">🎵</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="gallery-item" data-index="3" data-music="static/music/Poesia Acústica #11 - Nada Mudou (Parte do Chris) - Gabriel (youtube).mp3">
+                <div class="gallery-item" data-index="3" data-music="static/music/nada_mudou .mp3">
                     <div class="gallery-image">
                         <img src="static/img/ia.jpeg" alt="Nosso momento 4">
                         <div class="gallery-overlay">
                             <span class="gallery-icon">💑</span>
                             <p class="gallery-caption">Nada Mudou</p>
-                            <div class="music-indicator">🎵</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="gallery-item" data-index="4" data-music="static/music/Prisão Sem Grade (Ao Vivo) - Jorge & Mateus (youtube).mp3">
+                <div class="gallery-item" data-index="4" data-music="static/music/calma .mp3">
                     <div class="gallery-image">
                         <img src="static/img/festasesi.jpeg" alt="Nosso momento 5">
                         <div class="gallery-overlay">
                             <span class="gallery-icon">🎈</span>
-                            <p class="gallery-caption">Prisão Sem Grade</p>
-                            <div class="music-indicator">🎵</div>
+                            <p class="gallery-caption">Calma</p>
                         </div>
                     </div>
                 </div>
@@ -140,7 +137,6 @@ s<!DOCTYPE html>
                         <div class="gallery-overlay">
                             <span class="gallery-icon">💖</span>
                             <p class="gallery-caption">Heartburn</p>
-                            <div class="music-indicator">🎵</div>
                         </div>
                     </div>
                 </div>
@@ -152,19 +148,19 @@ s<!DOCTYPE html>
                 Seu navegador não suporta o elemento de áudio.
             </audio>
             <audio id="audio2" preload="auto">
-                <source src="static/music/Jorge & Mateus - A Hora é Agora - [DVD Ao Vivo em Jurerê] - (Clipe Oficial).mp3" type="audio/mpeg">
+                <source src="static/music/a_hora_é_agora.mp3" type="audio/mpeg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
             <audio id="audio3" preload="auto">
-                <source src="static/music/Matheus e Kauan   Todo Sol DVD 2021 Lançamento2021 - Victor Leal (youtube).mp3" type="audio/mpeg">
+                <source src="static/music/todo_sol.mp3" type="audio/mpeg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
             <audio id="audio4" preload="auto">
-                <source src="static/music/Poesia Acústica #11 - Nada Mudou (Parte do Chris) - Gabriel (youtube).mp3" type="audio/mpeg">
+                <source src="static/music/nada_mudou .mp3" type="audio/mpeg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
             <audio id="audio5" preload="auto">
-                <source src="static/music/Prisão Sem Grade (Ao Vivo) - Jorge & Mateus (youtube).mp3" type="audio/mpeg">
+                <source src="static/music/calma .mp3" type="audio/mpeg">
                 Seu navegador não suporta o elemento de áudio.
             </audio>
             <audio id="audio6" preload="auto">
@@ -187,7 +183,7 @@ s<!DOCTYPE html>
                 <div class="reasons-grid">
                     <div class="reason-item">
                         <div class="reason-icon">😊</div>
-                        <h3>Admiro muita coisa em você mary, sua felicidade, sua beleza, seu jeito, o jeito que me faz querer ser melhor nas coisas, principalmente na igreja, e tá aí outra coisa que é incrível em você, tenho certeza que nossa mãezinha Maria e o Espírito Santo tem muito orgulho da mulher que está se tornando, você é perfeita! Espero estar ao teu lado para acompamhar ainda mais seu crescimento espiritual e pessoal. Sua felicidade é contagiante, incrível como até as coisas mais "pesadas" ficam engraçadas com você, te faço sorrir pra admirar o seu sorriso, me alegra! você é linda demaaaaais, seu cabelo, olhos, boca, tudo em você se torna qualidade ao meu ver, até seus defeitos que você acha que tem. Espero que você seja feliz nessa nova fase da vida, que Deus abençõe sempre a sua vida, conte comigo sempre. Eu te amo muito. ❤️</h3>
+                        <h3>Admiro muita coisa em você mary, sua felicidade, sua beleza, seu jeito, o jeito que me faz querer ser melhor nas coisas, principalmente na igreja, e tá aí outra coisa que é incrível em você, tenho certeza que nossa mãezinha Maria e o Espírito Santo tem muito orgulho da mulher que está se tornando, você é perfeita! Espero estar ao teu lado para acompamhar ainda mais seu crescimento espiritual e pessoal. Sua felicidade é contagiante, incrível como até as coisas mais "pesadas" ficam engraçadas com você, te faço sorrir pra admirar o seu sorriso, me alegra! você é linda demaaaaais, seu cabelo, olhos, boca, tudo em você se torna qualidade ao meu ver, até seus defeitos que você acha que tem. Espero que você seja feliz nessa nova fase da vida, que Deus abençoe sempre a sua vida, conte comigo sempre. Eu te amo muito. ❤️</h3>
                         
                     </div>
                 </div>
@@ -204,6 +200,36 @@ s<!DOCTYPE html>
             </div>
         </div>
     </footer>
+
+    <!-- Modal para foto em tamanho maior -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="Foto em tamanho maior">
+                <div class="modal-overlay">
+                    <div class="modal-info">
+                        <h3 id="modalTitle"></h3>
+                        <p id="modalArtist"></p>
+                    </div>
+                    <div class="spotify-wave-container">
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                        <div class="spotify-wave"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="static/js/script.js"></script>
 </body>

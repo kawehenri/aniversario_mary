@@ -166,10 +166,18 @@ function addGallerySparkle() {
     });
 }
 
+// Variáveis globais para controle de música
+let currentAudio = null;
+let currentItem = null;
+
+// Função para lidar com o fim da música
+function handleMusicEnd() {
+    closePhotoModal();
+}
+
 // Funcionalidade de música para as fotos
 function addMusicToPhotos() {
     const galleryItems = document.querySelectorAll('.gallery-item');
-    let currentAudio = null;
     
     galleryItems.forEach(item => {
         const dataIndex = item.getAttribute('data-index');
@@ -177,43 +185,32 @@ function addMusicToPhotos() {
         const audio = document.getElementById(audioId);
         
         if (audio) {
+            console.log(`Áudio encontrado: ${audioId}`);
             // Adiciona cursor pointer para indicar que é clicável
             item.style.cursor = 'pointer';
             
             // Adiciona evento de clique
             item.addEventListener('click', function(e) {
                 e.preventDefault();
+                console.log(`Clique na foto ${dataIndex}`);
                 
                 // Para qualquer música que esteja tocando
                 if (currentAudio && currentAudio !== audio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
+                    if (currentItem) {
+                        currentItem.classList.remove('music-playing');
+                    }
                 }
                 
-                // Se a música atual está tocando, pausa
-                if (audio.paused) {
-                    audio.play().then(() => {
-                        currentAudio = audio;
-                        // Adiciona efeito visual de música tocando
-                        item.classList.add('music-playing');
-                    }).catch(error => {
-                        console.log('Erro ao reproduzir áudio:', error);
-                        // Mostra mensagem amigável se houver erro
-                        showMusicError();
-                    });
-                } else {
-                    // Se está tocando, pausa
-                    audio.pause();
-                    currentAudio = null;
-                    item.classList.remove('music-playing');
-                }
+                // Define a música atual e abre o modal
+                currentAudio = audio;
+                currentItem = item;
+                console.log('Abrindo modal...');
+                openPhotoModal(item);
             });
-            
-            // Adiciona efeito visual quando a música termina
-            audio.addEventListener('ended', function() {
-                item.classList.remove('music-playing');
-                currentAudio = null;
-            });
+        } else {
+            console.log(`Áudio não encontrado: ${audioId}`);
         }
     });
 }
@@ -428,6 +425,95 @@ function addConsoleMessage() {
         'font-size: 14px; color: #c44569;');
 }
 
+// Função para abrir o modal da foto
+function openPhotoModal(item) {
+    const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalArtist = document.getElementById('modalArtist');
+    
+    // Pega a imagem da foto clicada
+    const img = item.querySelector('img');
+    const caption = item.querySelector('.gallery-caption');
+    
+    // Define o conteúdo do modal
+    modalImage.src = img.src;
+    modalImage.alt = img.alt;
+    modalTitle.textContent = caption ? caption.textContent : 'Música Especial';
+    modalArtist.textContent = 'Tocando agora';
+    
+    // Mostra o modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Previne scroll do body
+    
+    // Toca a música quando o modal abre
+    if (currentAudio) {
+        console.log('Tentando tocar música...');
+        currentAudio.play().then(() => {
+            console.log('Música tocando com sucesso!');
+            // Adiciona efeito visual de música tocando
+            if (currentItem) {
+                currentItem.classList.add('music-playing');
+            }
+        }).catch(error => {
+            console.log('Erro ao reproduzir áudio:', error);
+            showMusicError();
+        });
+        
+        // Remove listeners anteriores e adiciona novo listener para quando a música terminar
+        currentAudio.removeEventListener('ended', handleMusicEnd);
+        currentAudio.addEventListener('ended', handleMusicEnd);
+    } else {
+        console.log('Nenhuma música definida para tocar');
+    }
+}
+
+// Função para fechar o modal da foto
+function closePhotoModal() {
+    const modal = document.getElementById('photoModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restaura scroll do body
+    
+    // Pausa a música quando o modal fecha
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+    }
+    
+    // Remove efeito visual de música tocando
+    if (currentItem) {
+        currentItem.classList.remove('music-playing');
+    }
+    
+    // Limpa as variáveis
+    currentAudio = null;
+    currentItem = null;
+}
+
+// Função para inicializar o modal
+function initPhotoModal() {
+    const modal = document.getElementById('photoModal');
+    const closeBtn = document.querySelector('.modal-close');
+    
+    // Fecha o modal quando clica no X
+    closeBtn.addEventListener('click', closePhotoModal);
+    
+    // Fecha o modal quando clica fora dele
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closePhotoModal();
+        }
+    });
+    
+    // Fecha o modal com a tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+            closePhotoModal();
+        }
+    });
+}
+
+
 // Inicialização quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializa todas as funcionalidades
@@ -441,6 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addMusicAnimations();
     addHeartClickEffect();
     addConsoleMessage();
+    initPhotoModal();
     
     // Opcional: descomentar se quiser cursor personalizado
     // addCustomCursor();
